@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project Title - Ray Lai Portfolio</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Custom styles for project pages */
+
+    /* Wrapper for main content (description, reflection) to control max-width */
+    .project-page-content-wrapper {
+      max-width: 960px; /* Limits content to less than 80% width on large screens */
+      margin: 0 auto; /* Centers the wrapper */
+      padding: 0 15px; /* Adds horizontal padding for smaller screens */
+    }
+
+    /* Container for the banner iframe to allow it to be wider */
+    .banner-container {
+        max-width: 1200px; /* Example: set a larger max-width for the banner container */
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    /* Banner iframe styling */
+    .project-banner-iframe {
+      width: 100%; /* Ensures the iframe takes full width of its container */
+      height: auto; /* Allows the height to adjust dynamically based on the iframe content's aspect ratio */
+      max-height: 700px; /* Optional: Sets a maximum height */
+      border-radius: 0.5rem; /* Optional: adds subtle rounded corners */
+      display: block; /* Ensures it behaves as a block element for centering */
+      margin-left: auto; /* Centers the iframe horizontally if it doesn't take full width */
+      margin-right: auto; /* Centers the iframe horizontally */
+    }
+
+    /* Ensure body has the desired background color from style.css */
+    body {
+        background-color: #0d1b2a; /* Very dark navy - ensuring this is consistent */
+    }
+  </style>
+</head>
+<body class="text-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">&larr; Back to Projects</a>
+    </div>
+  </nav>
+
+  <div class="container-fluid my-5 banner-container">
+    <h1 class="text-center mb-4" id="projectTitle">Experimental AI Tutor</h1>
+    <div class="mb-5 text-center">
+      <div class="ratio ratio-16x9 project-banner-iframe">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/igiO6CIYcds?si=KerHJVb3r1Bvzhd5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <main class="project-page-content-wrapper my-5">
+    <section class="mb-5">
+      <h2 class="mb-3">Project Description</h2>
+      <p id="projectDescription">
+        This project was for a hackathon, where I tackled the issue of equitable education. I experimented with integrating the most effective study techniques covered in the book "Make It Stick", with chatgpt's and youtube's API. Integrated dynamic urls and content generation loading with Jinja and Flask
+      </p>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="mb-3">My Reflections & Learnings</h2>
+      <p id="projectReflection">
+        This was before I learned of RAG, near the start of my coding journey. In hindsight, Its just a glorified chatgpt wrapper, and the hardest part was just figuring out how to generate dynamic urls and webpages that will change depending of what chatgpt generates automatically.
+      </p>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-light py-4 text-center">
+    <div class="container">
+      <small>&copy; 2025 Ray Lai</small>
+    </div>
+  </footer>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
+</body>
+</html>

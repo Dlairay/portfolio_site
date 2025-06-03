@@ -1,0 +1,349 @@
+/* ==========================================================================
+   0. RESET & GLOBAL STYLES
+   ========================================================================== */
+
+/* 0.1 Remove default margin/padding and ensure html/body fill viewport */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #0d1b2a;        /* Very dark navy */
+  color: #e0e1dd;                   /* Light grey text */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/* 0.2 Anchor/link default and hover states */
+a {
+  color: #82a3c9;                   /* Muted sky-blue */
+  text-decoration: none;
+}
+a:hover,
+a:focus {
+  color: #b1c5e0;                   /* Lighter sky-blue */
+  text-decoration: none;
+}
+
+/* 0.3 Utility: centered text */
+.text-center {
+  text-align: center !important;
+}
+
+/* ==========================================================================
+   1. HERO SECTION (About Me / Tech Stack / Profile)
+   ========================================================================== */
+
+/* 1.1 Hero container: padding + background */
+#hero {
+  background-color: #1b263b;        /* Dark blue */
+  padding-top: 4rem;                /* 64px */
+  padding-bottom: 4rem;             /* 64px */
+}
+
+/* 1.2 Hero grid setup: vertical centering of columns */
+#hero .row {
+  align-items: center;
+}
+
+/* 1.3 Hero text column */
+#hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+#hero .lead {
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+  color: #c5c6c7;                   /* Slightly lighter grey */
+}
+#hero h2 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #e0e1dd;
+}
+#hero p {
+  margin-bottom: 0.5rem;
+}
+
+/* 1.4 Hero button */
+#hero .btn-primary {
+  background-color: #415a77;        /* Slate-blue */
+  border-color: #415a77;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+}
+#hero .btn-primary:hover {
+  background-color: #546a88;
+  border-color: #546a88;
+}
+
+/* 1.5 Profile frame wrapper */
+.profile-frame {
+  width: 400px; /* Increased from 300px to 400px for a larger frame */
+  height: 400px; /* Increased from 300px to 400px */
+  border: 4px solid #e0e1dd; /* Light grey border */
+  border-radius: 50%; /* Circle shape */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  overflow: hidden; /* Ensures any overflow is clipped to the circle */
+}
+
+/* 1.6 Profile image inside the frame */
+.profile-img {
+  width: 100%; /* Ensures the image fills the frame */
+  height: 100%; /* Ensures the image fills the frame */
+  border-radius: 50%; /* Fully round */
+  object-fit: cover; /* Crops the image to cover the area while maintaining aspect ratio */
+}
+
+/* 1.7 On very narrow screens, shrink the frame & image */
+@media (max-width: 576px) {
+  #hero {
+    padding-top: 2rem;              /* 32px */
+    padding-bottom: 2rem;           /* 32px */
+  }
+  .profile-frame {
+    width: 250px; /* Adjusted for smaller screens to still be larger than default */
+    height: 250px; /* Adjusted for smaller screens */
+    border-width: 3px;
+  }
+  .profile-img {
+    width: 100%;                     /* Fills the smaller frame */
+    height: 100%;
+  }
+}
+
+/* 1.8 On narrow screens, move the image container above the text */
+@media (max-width: 767.98px) {
+  /* Bootstrap’s .row is flex; override order of .col-md-6 */
+  #hero .row {
+    flex-direction: column;         /* Stack columns vertically */
+  }
+  /* The image column is second in HTML; give it order: -1 to appear first */
+  #hero .col-md-6:last-child {
+    order: -1;
+    margin-bottom: 2rem;            /* Add spacing under the image */
+  }
+}
+
+/* ==========================================================================
+   2. PROJECTS SECTION & CARD STYLING
+   ========================================================================== */
+
+/* 2.1 Projects container */
+#projects {
+  background-color: #0d1b2a;        /* Match body background */
+  padding-top: 3rem;                /* 48px */
+  padding-bottom: 3rem;             /* 48px */
+}
+
+/* 2.2 Projects heading */
+#projects h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  color: #e0e1dd;
+  margin-bottom: 2.5rem;
+}
+
+/* 2.3 Center the row of cards */
+.row.justify-content-center.g-4 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 2.4 Make each column flex so the card centers */
+.row.justify-content-center.g-4 > [class*="col-"] {
+  display: flex;
+  justify-content: center;
+}
+
+/* 2.5 Card container: fixed height, flex column */
+.card {
+  background-color: #1b263b;
+  color: #e0e1dd;
+  border: none;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 2.6 Card hover effect */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* 2.7 Card image: top 60% of card */
+.card .card-img-top {
+  flex: 0 0 60%;
+  width: 100%;
+  object-fit: cover;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+/* 2.8 Card body: bottom 40% of card */
+.card .card-body {
+  flex: 1 1 40%;
+  background-color: transparent;
+  padding: 1rem;
+  overflow: auto;
+}
+.card .card-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.card .card-text {
+  font-size: 1rem;
+  color: #c5c6c7;
+}
+
+/* 2.9 Responsive column widths for cards */
+.col-12 { width: 100%; }
+@media (min-width: 576px) { .col-sm-6 { width: 50%; } }
+@media (min-width: 768px) { .col-md-6 { width: 50%; } }
+@media (min-width: 992px) { .col-lg-4 { width: 33.3333%; } }
+@media (min-width: 1200px) { .col-xl-3 { width: 25%; } }
+
+/* ==========================================================================
+   3. CONTACT CTA SECTION (Override bg-light)
+   ========================================================================== */
+
+section.text-center.py-5.bg-light {
+  background-color: #1b263b !important;
+  color: #e0e1dd;
+}
+section.text-center.py-5.bg-light .btn-outline-primary {
+  color: #e0e1dd;
+  border-color: #82a3c9;
+}
+section.text-center.py-5.bg-light .btn-outline-primary:hover {
+  background-color: #415a77;
+  border-color: #415a77;
+  color: #e0e1dd;
+}
+
+/* ==========================================================================
+   4. FOOTER (CTA + SOCIAL LINKS + COPYRIGHT)
+   ========================================================================== */
+
+/* 4.1 Main footer container */
+footer {
+  background-color: #1b263b;
+  color: #e0e1dd;
+  margin: 0;
+  padding-top: 2rem;               /* 32px */
+}
+
+/* 4.2 Footer call-to-action block */
+footer .container.py-5 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+footer .container.py-5 h3 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: #e0e1dd;
+}
+
+/* 4.3 Social links container */
+footer .container.text-center.py-3 {
+  padding-top: 1rem;               /* 16px */
+  padding-bottom: 1rem;            /* 16px */
+}
+footer .container.text-center.py-3 .d-flex {
+  display: flex;
+  flex-direction: column;          /* Stack icons+text on mobile */
+  align-items: center;
+  gap: 1rem;                       /* 16px gap */
+}
+@media (min-width: 576px) {
+  footer .container.text-center.py-3 .d-flex {
+    flex-direction: row;           /* Side-by-side on small+ screens */
+    gap: 3rem;                     /* 48px gap */
+  }
+}
+
+/* 4.4 Individual social link */
+footer .d-flex.align-items-center {
+  color: #e0e1dd;
+  text-decoration: none;
+}
+footer .d-flex.align-items-center:hover {
+  color: #b1c5e0;
+}
+footer .d-flex.align-items-center img {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.5rem;            /* 8px */
+}
+
+/* 4.5 Bottom copyright bar */
+footer .text-center.py-3 {
+  background-color: #0b131d;       /* Darker bar */
+  color: #8a8b8e;                  /* Greyish text */
+  margin-top: 0;
+  padding-top: 0.75rem;            /* 12px */
+  padding-bottom: 0.75rem;         /* 12px */
+}
+footer .text-center.py-3 small {
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   5. FORM STYLES (if using a contact form)
+   ========================================================================== */
+
+form .form-control {
+  background-color: #1b263b;
+  border: 1px solid #415a77;
+  border-radius: 0.5rem;
+  color: #e0e1dd;
+}
+form .form-control:focus {
+  background-color: #1b263b;
+  color: #e0e1dd;
+  border-color: #82a3c9;
+  box-shadow: none;
+}
+form .form-label {
+  font-weight: 500;
+  color: #e0e1dd;
+}
+form .btn-primary {
+  background-color: #415a77;
+  border-color: #415a77;
+}
+form .btn-primary:hover {
+  background-color: #546a88;
+  border-color: #546a88;
+}
+
+/* ==========================================================================
+   6. ADDITIONAL UTILITIES & MEDIA QUERIES
+   ========================================================================== */
+
+/* 6.1 Enforce text-center utility */
+.text-center {
+  text-align: center !important;
+}
+
+/* 6.2 Placeholder for further small-screen tweaks */
+@media (max-width: 576px) {
+  /* Additional rules as needed */
+}

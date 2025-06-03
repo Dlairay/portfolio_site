@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project Title - Ray Lai Portfolio</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Custom styles for project pages */
+
+    /* Wrapper for main content (description, carousel, reflection) to control max-width */
+    .project-page-content-wrapper {
+      max-width: 960px; /* Limits content to less than 80% width on large screens */
+      margin: 0 auto; /* Centers the wrapper */
+      padding: 0 15px; /* Adds horizontal padding for smaller screens */
+    }
+
+    /* Container for the banner image to allow it to be wider */
+    .banner-container {
+        max-width: 1200px; /* Example: set a larger max-width for the banner container */
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    /* Banner image styling */
+    .project-banner-img {
+      width: 100%; /* Ensures the image takes full width of its container */
+      height: auto; /* Allows the height to adjust dynamically based on the image's aspect ratio */
+      max-height: 700px; /* Optional: Sets a maximum height to prevent excessively tall images */
+      object-fit: contain; /* Scales the image to fit the container, preserving aspect ratio, and showing the entire image. This may result in empty space (letterboxing/pillarboxing) if the aspect ratios don't match. */
+      border-radius: 0.5rem; /* Optional: adds subtle rounded corners */
+      display: block; /* Ensures it behaves as a block element for centering */
+      margin-left: auto; /* Centers the image horizontally if it doesn't take full width */
+      margin-right: auto; /* Centers the image horizontally */
+    }
+
+    /* Carousel image styling */
+    .carousel-item img {
+      max-height: 500px; /* Limit carousel image height */
+      object-fit: contain; /* Ensures entire image is visible, adds padding if needed */
+      width: 100%;
+      display: block; /* Ensures centering works for carousel images too */
+      margin: 0 auto;
+    }
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      filter: invert(100%); /* Makes arrows visible on dark backgrounds */
+    }
+
+    /* Ensure body has the desired background color from style.css */
+    body {
+        background-color: #0d1b2a; /* Very dark navy - ensuring this is consistent */
+    }
+  </style>
+</head>
+<body class="text-light"> <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">&larr; Back to Projects</a>
+      </div>
+  </nav>
+
+  <div class="container-fluid my-5 banner-container"> <h1 class="text-center mb-4" id="projectTitle">Finetuning ASR model</h1>
+    <div class="mb-5 text-center">
+      <img src="images/asr/Screenshot 2025-06-04 at 2.00.17 AM.png" class="img-fluid project-banner-img" alt="Project Banner" id="bannerImage">
+    </div>
+  </div>
+
+  <main class="project-page-content-wrapper my-5"> <section class="mb-5">
+      <h2 class="mb-3">Project Description</h2>
+      <p id="projectDescription">
+        This project was for a hackathon. I finetuned OpenAI's ASR model (whisper-medium.en), and accelerated it using FasterWhisper, a library designed to increase inference speed of Whisper models up to 4x. I chose that model in particular to finetune because it gave a good balace between model size, speed, and accuracy, which was crucial when integrated with the other modules for the hackathon. My team (h3althydr0plet) unfortunately did not win, but I did build the 5th best ASR model among 60 other groups. 
+      </p>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="mb-3">Project Showcase</h2>
+      <div id="projectCarousel" class="carousel slide bg-secondary p-3 rounded" data-bs-ride="carousel">
+        <div class="carousel-inner" id="carouselInner">
+          <div class="carousel-item active">
+            <img src="images/asr/Screenshot 2025-06-04 at 1.42.54 AM.png" class="d-block w-100" alt="Project Image 1">
+            <div class="carousel-caption d-none d-md-block">
+            </div>
+          </div>
+   
+    
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="mb-3">My Reflections & Learnings</h2>
+      <p id="projectReflection">
+        This was actually my first time dealing with ASR models,and even fine-tuning so there was a steep learning curve, especially for what I can do in 2 weeks. I initially attempted to finetune Nvidia's ParakeetV2, but ran into the problem, that it is built on Nvidia's NeMo framework. After a few days, I realised that though the NeMo framework is open source, to meaningfully use it to finetune Nvidia models like Parakeet, I require access to Nvidia microservices which was beyond my budget, hence i switched over to Hugging Face's framework for fine-tuning.
+      </p>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-light py-4 text-center">
+    <div class="container">
+      <small>&copy; 2025 Ray Lai</small>
+    </div>
+  </footer>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
+
+</body>
+</html>

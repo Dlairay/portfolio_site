@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project Title - Ray Lai Portfolio</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Custom styles for project pages */
+
+    /* Wrapper for main content (description, carousel, reflection) to control max-width */
+    .project-page-content-wrapper {
+      max-width: 960px; /* Limits content to less than 80% width on large screens */
+      margin: 0 auto; /* Centers the wrapper */
+      padding: 0 15px; /* Adds horizontal padding for smaller screens */
+    }
+
+    /* Container for the banner image to allow it to be wider */
+    .banner-container {
+        max-width: 1200px; /* Example: set a larger max-width for the banner container */
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    /* Banner image styling */
+    .project-banner-img {
+      width: 100%; /* Ensures the image takes full width of its container */
+      height: auto; /* Allows the height to adjust dynamically based on the image's aspect ratio */
+      max-height: 700px; /* Optional: Sets a maximum height to prevent excessively tall images */
+      object-fit: contain; /* Scales the image to fit the container, preserving aspect ratio, and showing the entire image. This may result in empty space (letterboxing/pillarboxing) if the aspect ratios don't match. */
+      border-radius: 0.5rem; /* Optional: adds subtle rounded corners */
+      display: block; /* Ensures it behaves as a block element for centering */
+      margin-left: auto; /* Centers the image horizontally if it doesn't take full width */
+      margin-right: auto; /* Centers the image horizontally */
+    }
+
+    /* Carousel image styling */
+    .carousel-item img {
+      max-height: 500px; /* Limit carousel image height */
+      object-fit: contain; /* Ensures entire image is visible, adds padding if needed */
+      width: 100%;
+      display: block; /* Ensures centering works for carousel images too */
+      margin: 0 auto;
+    }
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      filter: invert(100%); /* Makes arrows visible on dark backgrounds */
+    }
+
+    /* Ensure body has the desired background color from style.css */
+    body {
+        background-color: #0d1b2a; /* Very dark navy - ensuring this is consistent */
+    }
+  </style>
+</head>
+<body class="text-light"> <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">&larr; Back to Projects</a>
+      </div>
+  </nav>
+
+  <div class="container-fluid my-5 banner-container"> <h1 class="text-center mb-4" id="projectTitle">Vegetation Trimming Robot</h1>
+    <div class="mb-5 text-center">
+      <img src="images/treemers/overview.jpg" class="img-fluid project-banner-img" alt="Project Banner" id="bannerImage">
+    </div>
+  </div>
+
+  <main class="project-page-content-wrapper my-5"> <section class="mb-5">
+      <h2 class="mb-3">Project Description</h2>
+      <p id="projectDescription">
+        This was a school project where we were tasked with redesigning a vegetation trimming robot. The original model we were given was bulky and intimidating, so we aimed for a form that felt natural and unobtrusive—something that would feel at home in a park or green space. Through rigorous ideation and iteration, we explored ways to better integrate the robot into its environment. The initial concept had two arms, but we quickly realized only one was necessary for trimming. That insight sparked a new idea: what if the arm could grow out like a sprout? This led to the creation of a seed-inspired body—an organic shape that harmonizes with nature. The final design is a thoughtful blend of form and function, capturing the essence of nature in both its utility and aesthetic.      </p>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="mb-3">Project Showcase</h2>
+      <div id="projectCarousel" class="carousel slide bg-secondary p-3 rounded" data-bs-ride="carousel">
+        <div class="carousel-inner" id="carouselInner">
+
+          <div class="carousel-item active">
+            <img src="images/treemers/IMG_9589.jpg" class="d-block w-100" alt="Project Image 1">
+          </div>
+          
+          <div class="carousel-item">
+            <img src="images/treemers/IMG_9583.jpg" class="d-block w-100" alt="Project Image 2">
+          </div>
+          <div class="carousel-item">
+            <img src="images/treemers/IMG_9584.jpg" class="d-block w-100" alt="Project Image 2">
+          </div>
+
+          <div class="carousel-item">
+            <img src="images/treemers/IMG_9585.jpg" class="d-block w-100" alt="Project Image 2">
+          </div>
+
+          <div class="carousel-item">
+            <img src="images/treemers/Screenshot 2025-06-04 at 1.14.30 AM.png" class="d-block w-100" alt="Project Image 2">
+          </div>
+
+          <div class="carousel-item">
+            <img src="images/treemers/photo_2025-06-04 01.17.42.jpeg" class="d-block w-100" alt="Project Image 2">
+          </div>
+
+          <div class="carousel-item">
+            <img src="images/treemers/Screenshot 2025-06-04 at 1.18.57 AM.png" class="d-block w-100" alt="Project Image 2">
+          </div>
+
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="mb-3">My Reflections & Learnings</h2>
+      <p id="projectReflection">
+        Learned how to 3D model on Fusion360 really well because of this project. Also used AI in the ideation, and iteration process.
+      </p>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-light py-4 text-center">
+    <div class="container">
+      <small>&copy; 2025 Ray Lai</small>
+    </div>
+  </footer>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
+ 
+</body>
+</html>
