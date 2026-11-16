@@ -1,0 +1,684 @@
+[
+  {
+    "slug": "simetry",
+    "title": "SIMETRY",
+    "tagline": "Synthetic consumer research for FMCG launches",
+    "oneLiner": "AI consumers built from Singapore population data debate your product in simulated focus groups before launch.",
+    "year": 2026,
+    "dateRange": "May 2026 – present",
+    "status": "ongoing",
+    "featured": true,
+    "accent": "#F5A623",
+    "role": "Solo founder, designer & engineer",
+    "context": "Early-stage startup",
+    "tags": [
+      "Multi-agent simulation",
+      "LLMs",
+      "FastAPI",
+      "pgvector",
+      "React Three Fiber",
+      "WebGL"
+    ],
+    "links": [
+      {
+        "label": "simetry.ai",
+        "url": "https://www.simetry.ai"
+      }
+    ],
+    "cover": "images/simetry/cover.png",
+    "coverAlt": "SIMETRY landing page: a silver can with the headline 'Every launch is a guess. Yours doesn't have to be.'",
+    "hero": "images/simetry/cover.png",
+    "heroAlt": "SIMETRY landing page hero",
+    "gallery": [
+      {
+        "src": "images/simetry/demo-midrun.png",
+        "alt": "Demo replay of a simulated focus group: ten persona agents around a table with speech bubbles, public statements and private thoughts"
+      }
+    ],
+    "highlights": [
+      {
+        "value": "10 agents × 8 rounds",
+        "label": "per simulated focus group"
+      },
+      {
+        "value": "Public vs private",
+        "label": "tracks what people say versus what they think"
+      },
+      {
+        "value": "Solo-built",
+        "label": "engine, demo and site"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Overview",
+        "paragraphs": [
+          "Every product launch is a guess. SIMETRY builds a synthetic population of Singapore consumers from real population data, puts them in a room with your product, and lets them talk each other into — or out of — buying it.",
+          "The output is what a brand needs before launch: likely adoption, willingness to pay, the objections that come up, and the gap between what people say in public and what they privately think."
+        ],
+        "bullets": []
+      },
+      {
+        "heading": "How it works",
+        "paragraphs": [],
+        "bullets": [
+          "Agents are seeded from the Nemotron-Personas-Singapore dataset, each with its own traits such as price sensitivity and trust in peers, influencers and ads",
+          "Every tick, each agent perceives, plans, writes to memory and occasionally reflects — a generative-agents loop run through LiteLLM so it can use OpenAI, Ollama or on-device MLX models",
+          "A world model injects market events such as price cuts, influencer mentions and supply shocks; social spread is modelled as a graph",
+          "Postgres with pgvector acts as a semantic cache for decisions, cutting repeat LLM calls",
+          "Every decision is logged, and a React replay viewer shows the room, speech bubbles, private thoughts and a final report"
+        ]
+      },
+      {
+        "heading": "The site",
+        "paragraphs": [
+          "simetry.ai is a WebGL scroll film built with React Three Fiber: a product is picked, a particle human forms around it, a focus group argues over it, and the camera pulls back to a grid of 1,000 simulated rooms. Figures are particle clouds sampled from posed meshes and baked ahead of time. Weaker GPUs are detected and get a lightweight non-WebGL version."
+        ],
+        "bullets": []
+      }
+    ],
+    "video": null,
+    "order": 1
+  },
+  {
+    "slug": "encoreworks",
+    "title": "EncoreWorks",
+    "tagline": "AI talent marketplace for experienced professionals",
+    "oneLiner": "AI-matched marketplace connecting experienced professionals with fractional roles — built end to end as lead contract engineer.",
+    "year": 2026,
+    "dateRange": "Feb – Sep 2026",
+    "status": "shipped",
+    "featured": true,
+    "accent": null,
+    "role": "Lead contract engineer (built end to end, then handed over)",
+    "context": "Client engagement for EncoreWorks",
+    "tags": [
+      "Next.js",
+      "FastAPI",
+      "Supabase / Postgres",
+      "OpenAI + Instructor",
+      "Cloud Run",
+      "Evals"
+    ],
+    "links": [
+      {
+        "label": "encoreworks.ai",
+        "url": "https://encoreworks.ai"
+      }
+    ],
+    "cover": "images/encoreworks/home.png",
+    "coverAlt": "EncoreWorks homepage: 'Your best work isn't behind you.'",
+    "hero": "images/encoreworks/home.png",
+    "heroAlt": "EncoreWorks homepage",
+    "gallery": [],
+    "logo": "images/encoreworks/logo.png",
+    "logoAlt": "EncoreWorks logo",
+    "highlights": [
+      {
+        "value": "0.86 / 0.84",
+        "label": "recall / precision on the skill-inference eval"
+      },
+      {
+        "value": "~1,900",
+        "label": "automated backend tests, plus Playwright end-to-end tests"
+      },
+      {
+        "value": "~600 commits",
+        "label": "over 7 months, from first commit to handover"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Overview",
+        "paragraphs": [
+          "EncoreWorks is a two-sided marketplace that matches experienced professionals with companies hiring for fractional and interim roles. Companies often undervalue senior talent; the platform surfaces what people can really do and carries the whole flow from match to application, messaging, reference checks and billing.",
+          "I was the lead contract engineer, building the product essentially solo from the first commit to a production launch, then handing it over to the client's team."
+        ],
+        "bullets": []
+      },
+      {
+        "heading": "AI that stays honest",
+        "paragraphs": [
+          "The core problem is understanding skills people have but don't write down. I built a multi-pass inference pipeline for it:"
+        ],
+        "bullets": [
+          "CV extraction that only records skills the CV actually states",
+          "Latent skill inference: profile fields become evidence atoms, an LLM proposes candidate skills, and a skill graph proposes related ones",
+          "Every inferred skill has to pass an LLM defensibility check, then resolve against a curated skills registry — so the AI never invents vocabulary",
+          "A golden-set eval harness with gates on recall, precision and zero certification leaks, run before changes ship",
+          "Prompt-injection guards, a circuit breaker with retries, rate limits and a per-user daily LLM cost ledger"
+        ]
+      },
+      {
+        "heading": "Matching & platform",
+        "paragraphs": [
+          "Matches combine a normalised capability-fit score with a five-dimension leadership calibration and an industry boost, computing the top matches for both sides. Around that sits a full product: multi-seat company accounts, messaging with attachments and meeting invites, moderation, Stripe billing and PDPA-compliant data export and deletion."
+        ],
+        "bullets": []
+      },
+      {
+        "heading": "Engineering",
+        "paragraphs": [
+          "FastAPI with async SQLAlchemy on Google Cloud Run; a Next.js 16 / React 19 frontend on Vercel; Supabase Postgres with row-level security. Three fully separate environments (local, staging, production) with promotion from staging to production, around 1,900 backend tests, Playwright tests that drive only the real UI, and custom validators that catch schema drift, hardcoded settings and mock data before they ship."
+        ],
+        "bullets": []
+      }
+    ],
+    "video": null,
+    "order": 2
+  },
+  {
+    "slug": "traffic-sim",
+    "title": "LLM-Agent Traffic Simulation",
+    "tagline": "Personality-driven drivers on Singapore's real road network",
+    "oneLiner": "LLM drivers with distinct personalities decide whether to reroute through congested Bugis streets, parallelised with Ray.",
+    "year": 2025,
+    "dateRange": "Oct 2025",
+    "status": "archived",
+    "featured": false,
+    "accent": "#FF6B4A",
+    "role": "TODO — confirm",
+    "context": "TODO — confirm MIT context",
+    "tags": [
+      "Google ADK",
+      "Ollama",
+      "Ray",
+      "OSMnx",
+      "NetworkX",
+      "Folium"
+    ],
+    "links": [],
+    "cover": "images/traffic-sim/bugis-network.svg",
+    "coverAlt": "Road network of Bugis, Singapore, from OpenStreetMap, with major roads highlighted",
+    "hero": "images/traffic-sim/bugis-network.svg",
+    "heroAlt": "Road network of Bugis, Singapore",
+    "gallery": [],
+    "highlights": [
+      {
+        "value": "143 nodes · 242 edges",
+        "label": "real OpenStreetMap road network"
+      },
+      {
+        "value": "5 personas",
+        "label": "demographic groups making plain-language route decisions"
+      },
+      {
+        "value": "17 bus stops · 305 POI clusters",
+        "label": "from LTA DataMall and OSM"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Overview",
+        "paragraphs": [
+          "Classic traffic models use fixed rules for route choice. This simulation asks what happens when every driver is an LLM agent with its own personality. On a real 1 km² road network around Bugis, Singapore, each agent checks the congestion ahead every 12-second step and decides in plain language whether to stay on its route or reroute."
+        ],
+        "bullets": []
+      },
+      {
+        "heading": "How it works",
+        "paragraphs": [],
+        "bullets": [
+          "Road network built with OSMnx from OpenStreetMap, with lanes, speeds and capacity per road; congestion modelled with the BPR delay function",
+          "Five demographic groups (students, professionals, elderly, families, young professionals), each with its own ranges for income, urgency, comfort and cost sensitivity",
+          "Trips from preset origin–destination pairs or chosen by the LLM to fit the persona; routes planned with A*",
+          "Agents built on Google ADK with tools to read their own profile and analyse the route ahead, running gpt-oss:20b locally on Ollama",
+          "Ray actors hold agent sessions and Ray tasks move agents in parallel, behind a load balancer for the local LLM",
+          "Points of interest from OpenStreetMap and bus stops and routes from Singapore's LTA DataMall ground the map in real data",
+          "Output is an interactive Leaflet map with timestep playback, colour-coded delays and agent markers"
+        ]
+      }
+    ],
+    "video": null,
+    "order": 3
+  },
+  {
+    "slug": "bloomie",
+    "title": "Bloomie",
+    "tagline": "AI-powered genetic health companion for parents",
+    "oneLiner": "AI parenting companion that turns a child's genetic profile into evolving, research-backed guidance.",
+    "year": 2025,
+    "dateRange": "2025",
+    "status": "shipped",
+    "featured": true,
+    "role": "Designer & AI engineer",
+    "context": "SUTD Service Design Studio, with BrightGen",
+    "tags": [
+      "Multi-agent",
+      "RAG",
+      "Service design",
+      "Mobile UX"
+    ],
+    "links": [
+      {
+        "label": "Demo video",
+        "url": "https://www.youtube.com/watch?v=NBnbSHpSSs0"
+      }
+    ],
+    "cover": "images/bloomie/Genetic profiling.jpg",
+    "coverAlt": "Bloomie genetic profiling screen",
+    "hero": "images/bloomie/Bloomie.jpg",
+    "heroAlt": "Bloomie project banner",
+    "gallery": [
+      {
+        "src": "images/bloomie/Bloomie.png",
+        "alt": "Bloomie home screen"
+      },
+      {
+        "src": "images/bloomie/Bloomie-2.png",
+        "alt": "DNA profile analysis"
+      },
+      {
+        "src": "images/bloomie/Bloomie-3.png",
+        "alt": "Weekly planner"
+      },
+      {
+        "src": "images/bloomie/Bloomie-4.png",
+        "alt": "Dr. Bloom chatbot"
+      },
+      {
+        "src": "images/bloomie/Bloomie-5.png",
+        "alt": "Parent logging"
+      },
+      {
+        "src": "images/bloomie/Bloomie-6.png",
+        "alt": "Check-in flow"
+      },
+      {
+        "src": "images/bloomie/Bloomie-7.png",
+        "alt": "Design system"
+      }
+    ],
+    "highlights": [
+      {
+        "value": "Multi-agent",
+        "label": "weekly check-in feedback loop"
+      },
+      {
+        "value": "RAG",
+        "label": "answers grounded in curated research"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Overview",
+        "paragraphs": [
+          "Built for Service Design Studio in partnership with BrightGen, Bloomie is a proof-of-concept AI parenting companion that helps develop a child's phenotype — traits and behaviours shaped by genes and environment — through continuous engagement.",
+          "Starting from genetic data, autonomous AI agents conduct weekly check-ins as part of a feedback loop with built-in methods to mitigate context rot and hallucinations. Retrieval-Augmented Generation keeps recommendations tied to research rather than generic results, with features extending to health and nutritional guidance.",
+          "The way AI is presented matters as much as the AI itself. Design thinking guided every step — parent interviews, prototyping, iteration — leading to a UI/UX that feels childlike and reassuring rather than clinical. Simple visuals, calm tone, minimal clutter to reduce cognitive load. The AI stays in the background."
+        ],
+        "bullets": []
+      },
+      {
+        "heading": "Results",
+        "paragraphs": [],
+        "bullets": [
+          "Recommendations improve with every interaction; personalisation gets better over time",
+          "Specialised AI agents for different parenting domains, reasoning collaboratively",
+          "RAG delivers specialised, accurate replies from a curated knowledge base",
+          "Complex AI simplified into an intuitive mobile experience"
+        ]
+      },
+      {
+        "heading": "Reflection",
+        "paragraphs": [
+          "This project showed what Design and AI is about — design at the core, driving AI that people actually want to use."
+        ],
+        "bullets": []
+      }
+    ],
+    "accent": null,
+    "video": null,
+    "order": 4
+  },
+  {
+    "slug": "productagent",
+    "title": "Product Research Agent",
+    "tagline": "Agentic RAG product advisor",
+    "oneLiner": "Upload a product photo; agents mine reviews and manuals to propose concrete design improvements.",
+    "year": 2025,
+    "dateRange": "2025",
+    "status": "archived",
+    "featured": false,
+    "role": "Solo developer",
+    "context": "SUTD school project",
+    "tags": [
+      "Agentic RAG",
+      "LangChain",
+      "Vector DB",
+      "Python"
+    ],
+    "links": [],
+    "cover": "images/productresearcher.png",
+    "coverAlt": "Product research agent pipeline",
+    "hero": "images/productagent/Screenshot 2025-06-03 at 10.05.29 PM.png",
+    "heroAlt": "Product research agent output",
+    "gallery": [
+      {
+        "src": "images/productagent/Screenshot 2025-06-03 at 9.58.30 PM.png",
+        "alt": "Pipeline input"
+      },
+      {
+        "src": "images/productagent/Screenshot 2025-06-03 at 9.58.46 PM.png",
+        "alt": "Collected reviews"
+      },
+      {
+        "src": "images/productagent/Screenshot 2025-06-03 at 9.58.52 PM.png",
+        "alt": "Competitor analysis"
+      },
+      {
+        "src": "images/productagent/Screenshot 2025-06-03 at 10.01.01 PM.png",
+        "alt": "Design improvement suggestions"
+      }
+    ],
+    "highlights": [],
+    "sections": [
+      {
+        "heading": "Overview",
+        "paragraphs": [
+          "An AI-powered product research tool exploring Retrieval-Augmented Generation and AI agents. You input an image of a product; the pipeline collects reviews and feedback for that product and its competitors and turns them into actionable insights.",
+          "Agents validate and extract relevant information from official product manuals, which are embedded into a vector database. Manuals plus user feedback feed a RAG system that generates targeted design suggestions — e.g. \"Increase maximum table height from 70 cm to 76 cm.\""
+        ],
+        "bullets": []
+      },
+      {
+        "heading": "Reflection",
+        "paragraphs": [
+          "The assignment was meant to introduce APIs and LLMs through a basic review system; I took it further into a full agentic RAG pipeline. The agent ecosystem was fragmented at the time (LangGraph, LangChain, OpenAI agents, pre-MCP). Midway, Google ADK launched — I got a test case running, but integration caused instability, so I reverted to LangChain agents. A lesson in adapting to a fast-moving landscape."
+        ],
+        "bullets": []
+      }
+    ],
+    "accent": null,
+    "video": null,
+    "order": 5
+  },
+  {
+    "slug": "turret",
+    "title": "AI Controlled Turret",
+    "tagline": "NLP command module for a sentry turret",
+    "oneLiner": "Speech-to-command NLP module with near-perfect function calling; team placed 1st runner-up.",
+    "year": 2025,
+    "dateRange": "2025",
+    "status": "archived",
+    "featured": false,
+    "role": "NLP module engineer",
+    "context": "Hackathon, team",
+    "tags": [
+      "NLP",
+      "Function calling",
+      "Pydantic",
+      "Docker"
+    ],
+    "links": [],
+    "cover": "images/turret.png",
+    "coverAlt": "AI controlled turret",
+    "hero": "images/turret/IMG_2006.JPG",
+    "heroAlt": "Turret hackathon",
+    "gallery": [
+      {
+        "src": "images/turret/IMG_9958.jpg",
+        "alt": "Turret setup"
+      },
+      {
+        "src": "images/turret/Screenshot 2025-06-04 at 12.57.29 AM.png",
+        "alt": "NLP module output"
+      },
+      {
+        "src": "images/turret/Screenshot 2025-06-04 at 12.57.42 AM.png",
+        "alt": "NLP module output"
+      },
+      {
+        "src": "images/turret/IMG_4482.JPG",
+        "alt": "Hackathon team"
+      }
+    ],
+    "highlights": [
+      {
+        "value": "1st runner-up",
+        "label": "hackathon placing"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Overview",
+        "paragraphs": [
+          "A hackathon to build the best-performing AI program to control a sentry turret. I engineered the NLP module that converts human transcriptions into standardised instructions.",
+          "A lightweight LLM combined with pre/post regex processing and Pydantic schemas gave a very fast model capable of function calling with near-perfect accuracy, directly contributing to the team's 1st runner-up finish."
+        ],
+        "bullets": []
+      },
+      {
+        "heading": "Reflection",
+        "paragraphs": [
+          "My first exposure to deploying models with Docker images and containers."
+        ],
+        "bullets": []
+      }
+    ],
+    "accent": null,
+    "video": null,
+    "order": 6
+  },
+  {
+    "slug": "asr",
+    "title": "LoRA Fine-tuned ASR",
+    "tagline": "Whisper fine-tuning for fast, accurate transcription",
+    "oneLiner": "Fine-tuned Whisper with LoRA and FasterWhisper; 5th best ASR model of 60 teams.",
+    "year": 2025,
+    "dateRange": "2025",
+    "status": "archived",
+    "featured": false,
+    "role": "ASR engineer",
+    "context": "Hackathon, team h3althydr0plet",
+    "tags": [
+      "Whisper",
+      "LoRA",
+      "Hugging Face",
+      "FasterWhisper"
+    ],
+    "links": [],
+    "cover": "images/asr/asr.png",
+    "coverAlt": "ASR model",
+    "hero": "images/asr/Screenshot 2025-06-04 at 2.00.17 AM.png",
+    "heroAlt": "ASR leaderboard",
+    "gallery": [
+      {
+        "src": "images/asr/Screenshot 2025-06-04 at 1.42.54 AM.png",
+        "alt": "ASR results"
+      }
+    ],
+    "highlights": [
+      {
+        "value": "5th / 60",
+        "label": "ASR model ranking"
+      },
+      {
+        "value": "up to 4×",
+        "label": "faster inference via FasterWhisper"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Overview",
+        "paragraphs": [
+          "For a hackathon, I fine-tuned OpenAI's whisper-medium.en and accelerated it with FasterWhisper (up to 4× faster inference). The model balanced size, speed and accuracy — crucial when integrated with the other modules. The team didn't win, but my model ranked 5th of 60 groups."
+        ],
+        "bullets": []
+      },
+      {
+        "heading": "Reflection",
+        "paragraphs": [
+          "My first time with ASR and fine-tuning — a steep curve for two weeks. I first tried NVIDIA Parakeet V2, but meaningful fine-tuning on NeMo required NVIDIA microservices beyond my budget, so I switched to Hugging Face."
+        ],
+        "bullets": []
+      }
+    ],
+    "accent": null,
+    "video": null,
+    "order": 7
+  },
+  {
+    "slug": "tutor",
+    "title": "Tutor",
+    "tagline": "Experimental AI study tutor",
+    "oneLiner": "AI tutor applying the study techniques from \"Make It Stick\" with ChatGPT and YouTube APIs.",
+    "year": 2024,
+    "dateRange": "2024",
+    "status": "archived",
+    "featured": false,
+    "role": "Solo developer",
+    "context": "Hackathon — equitable education",
+    "tags": [
+      "OpenAI API",
+      "Flask",
+      "Jinja",
+      "YouTube API"
+    ],
+    "links": [
+      {
+        "label": "Demo video",
+        "url": "https://www.youtube.com/watch?v=igiO6CIYcds"
+      }
+    ],
+    "video": "https://www.youtube.com/embed/igiO6CIYcds",
+    "cover": "images/turtor.png",
+    "coverAlt": "Tutor app",
+    "hero": "",
+    "heroAlt": "",
+    "gallery": [],
+    "highlights": [],
+    "sections": [
+      {
+        "heading": "Overview",
+        "paragraphs": [
+          "Tackling equitable education, I integrated the most effective study techniques from \"Make It Stick\" with ChatGPT and YouTube APIs, generating dynamic URLs and content with Flask and Jinja."
+        ],
+        "bullets": []
+      },
+      {
+        "heading": "Reflection",
+        "paragraphs": [
+          "Built near the start of my coding journey, before I learned about RAG. In hindsight it's a ChatGPT wrapper — the hardest part was generating dynamic pages that change based on model output."
+        ],
+        "bullets": []
+      }
+    ],
+    "accent": null,
+    "order": 8
+  },
+  {
+    "slug": "treemer",
+    "title": "Vegetation Trimming Robot",
+    "tagline": "Nature-inspired robot industrial design",
+    "oneLiner": "Redesigned a bulky trimming robot into a seed-inspired form with a sprouting arm.",
+    "year": 2024,
+    "dateRange": "2024",
+    "status": "archived",
+    "featured": false,
+    "role": "Industrial designer",
+    "context": "SUTD school project, team",
+    "tags": [
+      "Industrial design",
+      "Fusion 360",
+      "Biomimicry"
+    ],
+    "links": [],
+    "cover": "images/treemers/treemer.png",
+    "coverAlt": "Treemer robot render",
+    "hero": "images/treemers/overview.jpg",
+    "heroAlt": "Treemer overview board",
+    "gallery": [
+      {
+        "src": "images/treemers/IMG_9589.jpg",
+        "alt": "Prototype"
+      },
+      {
+        "src": "images/treemers/IMG_9583.jpg",
+        "alt": "Prototype"
+      },
+      {
+        "src": "images/treemers/IMG_9584.jpg",
+        "alt": "Prototype"
+      },
+      {
+        "src": "images/treemers/IMG_9585.jpg",
+        "alt": "Prototype"
+      },
+      {
+        "src": "images/treemers/Screenshot 2025-06-04 at 1.14.30 AM.png",
+        "alt": "CAD model"
+      },
+      {
+        "src": "images/treemers/photo_2025-06-04 01.17.42.jpeg",
+        "alt": "Prototype"
+      },
+      {
+        "src": "images/treemers/Screenshot 2025-06-04 at 1.18.57 AM.png",
+        "alt": "CAD model"
+      }
+    ],
+    "highlights": [],
+    "sections": [
+      {
+        "heading": "Overview",
+        "paragraphs": [
+          "We redesigned a vegetation trimming robot whose original form was bulky and intimidating, aiming for something that feels at home in a park. Early concepts had two arms; we realised one was enough — which sparked the idea of an arm that grows out like a sprout, leading to a seed-inspired body that harmonises with nature."
+        ],
+        "bullets": []
+      },
+      {
+        "heading": "Reflection",
+        "paragraphs": [
+          "Learned Fusion 360 in depth, and used AI in ideation and iteration."
+        ],
+        "bullets": []
+      }
+    ],
+    "accent": null,
+    "video": null,
+    "order": 9
+  },
+  {
+    "slug": "esp32",
+    "title": "ESP32 × Firebase IoT",
+    "tagline": "Two-way IoT display",
+    "oneLiner": "ESP32 device syncing an LCD with Firebase, controllable by IR remote or the cloud.",
+    "year": 2024,
+    "dateRange": "2024",
+    "status": "archived",
+    "featured": false,
+    "role": "Solo developer",
+    "context": "SUTD mini project",
+    "tags": [
+      "ESP32",
+      "Firebase",
+      "IoT",
+      "C++"
+    ],
+    "links": [
+      {
+        "label": "Demo video",
+        "url": "https://youtube.com/shorts/ddrHwVZsk2I"
+      }
+    ],
+    "cover": "images/esp32.jpg",
+    "coverAlt": "ESP32 device with LCD",
+    "hero": "images/esp32.jpg",
+    "heroAlt": "ESP32 device with LCD",
+    "gallery": [],
+    "highlights": [],
+    "sections": [
+      {
+        "heading": "Overview",
+        "paragraphs": [
+          "An ESP32 device using its Wi-Fi to connect to Firebase, with an LCD showing values that can be changed from an IR remote or directly from Firebase."
+        ],
+        "bullets": []
+      }
+    ],
+    "accent": null,
+    "video": null,
+    "order": 10
+  }
+]

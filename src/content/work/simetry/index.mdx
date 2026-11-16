@@ -1,0 +1,48 @@
+---
+title: "SIMETRY"
+tagline: "Synthetic consumer research for FMCG launches"
+oneLiner: "AI consumers built from Singapore population data debate your product in simulated focus groups before launch."
+year: 2026
+dateRange: "May 2026 – present"
+status: "ongoing"
+featured: true
+order: 1
+accent: "#F5A623"
+role: "Solo founder, designer & engineer"
+context: "Early-stage startup"
+tags: ["Multi-agent simulation", "LLMs", "FastAPI", "pgvector", "React Three Fiber", "WebGL"]
+links:
+  - label: "simetry.ai"
+    url: "https://www.simetry.ai"
+cover: "./cover.png"
+coverAlt: "SIMETRY landing page: a silver can with the headline 'Every launch is a guess. Yours doesn't have to be.'"
+hero: "./cover.png"
+heroAlt: "SIMETRY landing page hero"
+gallery:
+  - src: "./gallery-01.png"
+    alt: "Demo replay of a simulated focus group: ten persona agents around a table with speech bubbles, public statements and private thoughts"
+highlights:
+  - value: "10 agents × 8 rounds"
+    label: "per simulated focus group"
+  - value: "Public vs private"
+    label: "tracks what people say versus what they think"
+  - value: "Solo-built"
+    label: "engine, demo and site"
+---
+## Overview
+
+Every product launch is a guess. SIMETRY builds a synthetic population of Singapore consumers from real population data, puts them in a room with your product, and lets them talk each other into — or out of — buying it.
+
+The output is what a brand needs before launch: likely adoption, willingness to pay, the objections that come up, and the gap between what people say in public and what they privately think.
+
+## How it works
+
+- Agents are seeded from the Nemotron-Personas-Singapore dataset, each with its own traits such as price sensitivity and trust in peers, influencers and ads
+- Every tick, each agent perceives, plans, writes to memory and occasionally reflects — a generative-agents loop run through LiteLLM so it can use OpenAI, Ollama or on-device MLX models
+- A world model injects market events such as price cuts, influencer mentions and supply shocks; social spread is modelled as a graph
+- Postgres with pgvector acts as a semantic cache for decisions, cutting repeat LLM calls
+- Every decision is logged, and a React replay viewer shows the room, speech bubbles, private thoughts and a final report
+
+## The site
+
+simetry.ai is a WebGL scroll film built with React Three Fiber: a product is picked, a particle human forms around it, a focus group argues over it, and the camera pulls back to a grid of 1,000 simulated rooms. Figures are particle clouds sampled from posed meshes and baked ahead of time. Weaker GPUs are detected and get a lightweight non-WebGL version.

@@ -1,0 +1,38 @@
+---
+title: "LLM-Agent Traffic Simulation"
+tagline: "Personality-driven drivers on Singapore's real road network"
+oneLiner: "LLM drivers with distinct personalities decide whether to reroute through congested Bugis streets, parallelised with Ray."
+year: 2025
+dateRange: "Oct 2025"
+status: "archived"
+featured: false
+order: 3
+accent: "#FF6B4A"
+role: "TODO — confirm"
+context: "TODO — confirm MIT context"
+tags: ["Google ADK", "Ollama", "Ray", "OSMnx", "NetworkX", "Folium"]
+cover: "./cover.svg"
+coverAlt: "Road network of Bugis, Singapore, from OpenStreetMap, with major roads highlighted"
+hero: "./cover.svg"
+heroAlt: "Road network of Bugis, Singapore"
+highlights:
+  - value: "143 nodes · 242 edges"
+    label: "real OpenStreetMap road network"
+  - value: "5 personas"
+    label: "demographic groups making plain-language route decisions"
+  - value: "17 bus stops · 305 POI clusters"
+    label: "from LTA DataMall and OSM"
+---
+## Overview
+
+Classic traffic models use fixed rules for route choice. This simulation asks what happens when every driver is an LLM agent with its own personality. On a real 1 km² road network around Bugis, Singapore, each agent checks the congestion ahead every 12-second step and decides in plain language whether to stay on its route or reroute.
+
+## How it works
+
+- Road network built with OSMnx from OpenStreetMap, with lanes, speeds and capacity per road; congestion modelled with the BPR delay function
+- Five demographic groups (students, professionals, elderly, families, young professionals), each with its own ranges for income, urgency, comfort and cost sensitivity
+- Trips from preset origin–destination pairs or chosen by the LLM to fit the persona; routes planned with A*
+- Agents built on Google ADK with tools to read their own profile and analyse the route ahead, running gpt-oss:20b locally on Ollama
+- Ray actors hold agent sessions and Ray tasks move agents in parallel, behind a load balancer for the local LLM
+- Points of interest from OpenStreetMap and bus stops and routes from Singapore's LTA DataMall ground the map in real data
+- Output is an interactive Leaflet map with timestep playback, colour-coded delays and agent markers

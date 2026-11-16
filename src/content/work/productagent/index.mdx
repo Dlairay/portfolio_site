@@ -1,0 +1,35 @@
+---
+title: "Product Research Agent"
+tagline: "Agentic RAG product advisor"
+oneLiner: "Upload a product photo; agents mine reviews and manuals to propose concrete design improvements."
+year: 2025
+dateRange: "2025"
+status: "archived"
+featured: false
+order: 5
+role: "Solo developer"
+context: "SUTD school project"
+tags: ["Agentic RAG", "LangChain", "Vector DB", "Python"]
+cover: "./cover.png"
+coverAlt: "Product research agent pipeline"
+hero: "./hero.png"
+heroAlt: "Product research agent output"
+gallery:
+  - src: "./gallery-01.png"
+    alt: "Pipeline input"
+  - src: "./gallery-02.png"
+    alt: "Collected reviews"
+  - src: "./gallery-03.png"
+    alt: "Competitor analysis"
+  - src: "./gallery-04.png"
+    alt: "Design improvement suggestions"
+---
+## Overview
+
+An AI-powered product research tool exploring Retrieval-Augmented Generation and AI agents. You input an image of a product; the pipeline collects reviews and feedback for that product and its competitors and turns them into actionable insights.
+
+Agents validate and extract relevant information from official product manuals, which are embedded into a vector database. Manuals plus user feedback feed a RAG system that generates targeted design suggestions — e.g. "Increase maximum table height from 70 cm to 76 cm."
+
+## Reflection
+
+The assignment was meant to introduce APIs and LLMs through a basic review system; I took it further into a full agentic RAG pipeline. The agent ecosystem was fragmented at the time (LangGraph, LangChain, OpenAI agents, pre-MCP). Midway, Google ADK launched — I got a test case running, but integration caused instability, so I reverted to LangChain agents. A lesson in adapting to a fast-moving landscape.

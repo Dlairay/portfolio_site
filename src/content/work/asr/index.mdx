@@ -1,0 +1,32 @@
+---
+title: "LoRA Fine-tuned ASR"
+tagline: "Whisper fine-tuning for fast, accurate transcription"
+oneLiner: "Fine-tuned Whisper with LoRA and FasterWhisper; 5th best ASR model of 60 teams."
+year: 2025
+dateRange: "2025"
+status: "archived"
+featured: false
+order: 7
+role: "ASR engineer"
+context: "Hackathon, team h3althydr0plet"
+tags: ["Whisper", "LoRA", "Hugging Face", "FasterWhisper"]
+cover: "./cover.png"
+coverAlt: "ASR model"
+hero: "./hero.png"
+heroAlt: "ASR leaderboard"
+gallery:
+  - src: "./gallery-01.png"
+    alt: "ASR results"
+highlights:
+  - value: "5th / 60"
+    label: "ASR model ranking"
+  - value: "up to 4×"
+    label: "faster inference via FasterWhisper"
+---
+## Overview
+
+For a hackathon, I fine-tuned OpenAI's whisper-medium.en and accelerated it with FasterWhisper (up to 4× faster inference). The model balanced size, speed and accuracy — crucial when integrated with the other modules. The team didn't win, but my model ranked 5th of 60 groups.
+
+## Reflection
+
+My first time with ASR and fine-tuning — a steep curve for two weeks. I first tried NVIDIA Parakeet V2, but meaningful fine-tuning on NeMo required NVIDIA microservices beyond my budget, so I switched to Hugging Face.
