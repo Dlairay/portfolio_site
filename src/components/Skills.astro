@@ -2,12 +2,13 @@
 import Marquee from './Marquee.astro';
 
 // Concrete, ATS-friendly keywords only (tools, frameworks, stacks), each backed by a project.
-const rows = [
+type Row = { label: string; accent: string; duration: number; direction: 'left' | 'right'; repeat?: number; items: string[] };
+const rows: Row[] = [
   {
     label: 'AI / ML',
     accent: '#8EA8FF',
     duration: 60,
-    direction: 'left' as const,
+    direction: 'left',
     items: [
       'LangChain', 'LangGraph', 'Google ADK', 'Multi-agent Systems', 'RAG', 'pgvector', 'LiteLLM', 'Ollama', 'MLX',
       'Hugging Face', 'LoRA Fine-tuning', 'Whisper', 'FasterWhisper', 'Function Calling', 'Pydantic', 'Ray',
@@ -17,15 +18,16 @@ const rows = [
     label: 'Engineering',
     accent: '#3DDC97',
     duration: 50,
-    direction: 'right' as const,
+    direction: 'right',
     items: ['Python', 'TypeScript', 'FastAPI', 'Flask', 'React', 'React Three Fiber', 'WebGL', 'PostgreSQL', 'Docker', 'GCP', 'Firebase', 'NetworkX', 'C++'],
   },
   {
     label: 'Design',
     accent: '#E7E9EE',
     duration: 45,
-    direction: 'left' as const,
-    items: ['Figma', 'Fusion 360', 'Blender', 'UX Research', 'Service Design', 'Rapid Prototyping'],
+    direction: 'left',
+    repeat: 4,
+    items: ['Fusion 360', 'UX Research', 'Rapid Prototyping'],
   },
 ];
 ---
@@ -34,7 +36,7 @@ const rows = [
   {rows.map((r) => (
     <div class="skills__row" style={`--row-accent:${r.accent}`}>
       <h3 class="skills__name">{r.label}</h3>
-      <Marquee duration={r.duration} direction={r.direction} repeat={2} class="skills__marquee" label={`${r.label} skills`}>
+      <Marquee duration={r.duration} direction={r.direction} repeat={r.repeat ?? 2} class="skills__marquee" label={`${r.label} skills`}>
         {r.items.map((i) => (
           <li class="word">
             <span class="word__text">{i}</span>
