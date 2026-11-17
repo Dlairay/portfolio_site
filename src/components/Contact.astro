@@ -6,7 +6,7 @@ import { contact } from '../data/contact';
   Contact
 </button>
 
-<dialog id="contact-dialog" class="contact" aria-labelledby="contact-title" data-lenis-prevent data-endpoint={contact.formEndpoint} data-email={contact.email}>
+<dialog id="contact-dialog" class="contact" aria-labelledby="contact-title" data-lenis-prevent data-email={contact.email}>
   <div class="contact__inner">
     <header class="contact__head">
       <h2 id="contact-title" class="contact__title">Contact</h2>
@@ -30,24 +30,6 @@ import { contact } from '../data/contact';
         </li>
       ))}
     </ul>
-
-    <form class="contact__form" data-contact-form>
-      <p class="contact__form-title">Or send a quick message</p>
-      <label>
-        <span>Name</span>
-        <input name="name" type="text" autocomplete="name" required />
-      </label>
-      <label>
-        <span>Your email</span>
-        <input name="email" type="email" autocomplete="email" required />
-      </label>
-      <label>
-        <span>Message</span>
-        <textarea name="message" rows="4" required></textarea>
-      </label>
-      <button type="submit" class="contact__send">Send message</button>
-      <p class="contact__status" role="status" aria-live="polite"></p>
-    </form>
   </div>
 </dialog>
 
@@ -128,21 +110,6 @@ import { contact } from '../data/contact';
   .contact__social-label { font-weight: 600; }
   .contact__social-handle { color: var(--ink-dim); font-size: 0.9rem; }
 
-  .contact__form { display: grid; gap: 0.85rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
-  .contact__form-title { font-weight: 600; }
-  .contact__form label { display: grid; gap: 0.35rem; font-size: 0.85rem; color: var(--ink-dim); }
-  .contact__form input, .contact__form textarea {
-    width: 100%; padding: 0.75rem 0.9rem; border-radius: 0.7rem; border: 1px solid var(--line);
-    background: rgb(255 255 255 / 0.03); color: var(--ink); font: inherit; font-size: 1rem; resize: vertical;
-  }
-  .contact__form input:focus, .contact__form textarea:focus { outline: none; border-color: var(--accent); }
-  .contact__send {
-    justify-self: start; padding: 0.8rem 1.4rem; border: 0; border-radius: 999px;
-    background: #fff; color: #0b0d10; font-weight: 700; font-size: 0.95rem; cursor: pointer;
-  }
-  .contact__send:hover { filter: brightness(1.08); }
-  .contact__send:disabled { opacity: 0.6; cursor: wait; }
-  .contact__status { font-size: 0.9rem; color: var(--ink-dim); min-height: 1.2em; }
 </style>
 
 <script>
@@ -165,35 +132,6 @@ import { contact } from '../data/contact';
         copyBtn.textContent = 'Copy failed';
       }
       setTimeout(() => (copyBtn.textContent = 'Copy'), 1800);
-    });
-
-    const form = dialog.querySelector<HTMLFormElement>('[data-contact-form]')!;
-    const status = form.querySelector<HTMLElement>('.contact__status')!;
-    const send = form.querySelector<HTMLButtonElement>('.contact__send')!;
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = new FormData(form);
-      const endpoint = dialog.dataset.endpoint;
-      if (!endpoint) {
-        // No backend configured: hand off to the visitor's mail app.
-        const subject = `Hello from ${data.get('name')}`;
-        const body = `${data.get('message')}\n\n— ${data.get('name')} (${data.get('email')})`;
-        location.href = `mailto:${dialog.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        status.textContent = 'Opening your mail app…';
-        return;
-      }
-      send.disabled = true;
-      status.textContent = 'Sending…';
-      try {
-        const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
-        if (!res.ok) throw new Error(String(res.status));
-        form.reset();
-        status.textContent = 'Sent. I’ll get back to you soon.';
-      } catch {
-        status.textContent = `Couldn’t send. Email me at ${dialog.dataset.email} instead.`;
-      } finally {
-        send.disabled = false;
-      }
     });
   }
   // Registered once: opens whichever dialog the current page has.
