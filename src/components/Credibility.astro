@@ -1,0 +1,67 @@
+---
+import Marquee from './Marquee.astro';
+import { url } from '../lib/work';
+
+// Text-only entries are stand-ins until an official logo file is supplied.
+const logos: { name: string; src?: string; w?: number; wordmark?: string }[] = [
+  { name: 'MIT', src: 'logos/mit.svg', w: 116 },
+  { name: 'SMART — Singapore-MIT Alliance for Research and Technology', src: 'logos/smart.png', w: 163 },
+  { name: 'BrightGen', wordmark: 'BrightGen' },
+  { name: 'ROAR Lab, SUTD', wordmark: 'ROAR Lab' },
+  { name: 'HKS', src: 'logos/hks.svg', w: 100 },
+  { name: 'EncoreWorks', src: 'logos/encoreworks-mark.png', w: 60, wordmark: 'EncoreWorks' },
+];
+
+---
+<section id="worked-with" class="cred section section--deep" aria-labelledby="cred-title">
+  <div class="wrap">
+    <h2 id="cred-title" class="eyebrow cred__label" data-reveal>Worked with</h2>
+  </div>
+
+  <Marquee duration={45} repeat={2} class="cred__marquee" label="Organisations I have worked with">
+    {logos.map((l) => (
+      <li class="logo" title={l.name}>
+        {l.src && <img src={url(l.src)} alt={l.name} width={l.w} height="60" loading="lazy" decoding="async" />}
+        {l.wordmark && <span class="logo__word" aria-hidden={l.src ? 'true' : undefined}>{l.wordmark}</span>}
+      </li>
+    ))}
+  </Marquee>
+
+</section>
+
+<style>
+  .cred { padding-top: clamp(4rem, 8vw, 6rem); }
+  .cred__label { text-align: center; margin-bottom: clamp(2rem, 4vw, 3rem); }
+
+  .cred__marquee { --gap: clamp(0.75rem, 2vw, 1.5rem); padding-block: 0.5rem; }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    height: clamp(4rem, 7vw, 5.5rem);
+    padding: 0 clamp(1.5rem, 3vw, 2.5rem);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    transition: background-color 0.4s var(--ease-out), border-color 0.4s var(--ease-out);
+  }
+  .logo img {
+    height: 45%;
+    width: auto;
+    /* greyscale, knocked out to a light silhouette on the dark base */
+    filter: grayscale(1) brightness(0) invert(0.82);
+    transition: filter 0.4s var(--ease-out);
+  }
+  .logo__word {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+    letter-spacing: -0.02em;
+    color: rgb(238 242 246 / 0.82);
+    transition: color 0.4s var(--ease-out);
+  }
+  .logo:hover { background: #f3f5f7; border-color: #f3f5f7; }
+  .logo:hover img { filter: none; }
+  .logo:hover .logo__word { color: #14324f; }
+
+</style>

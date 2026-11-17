@@ -5,16 +5,18 @@ oneLiner: "LLM drivers with distinct personalities decide whether to reroute thr
 year: 2025
 dateRange: "Oct 2025"
 status: "archived"
-featured: false
+featured: true
+takeaway: "Scaled from a 1 km street grid to a 2 km city of 500 LLM agents"
 order: 3
 accent: "#FF6B4A"
-role: "TODO — confirm"
-context: "TODO — confirm MIT context"
+role: "Research intern"
+context: "Research internship at MIT (SMART, MIT's research centre in Singapore)"
+chip: "Research · MIT"
 tags: ["Google ADK", "Ollama", "Ray", "OSMnx", "NetworkX", "Folium"]
-cover: "./cover.svg"
-coverAlt: "Road network of Bugis, Singapore, from OpenStreetMap, with major roads highlighted"
-hero: "./cover.svg"
-heroAlt: "Road network of Bugis, Singapore"
+cover: "./cover.png"
+coverAlt: "HoloCity simulation dashboard: a 3D map of Singapore buildings and roads, 500 agents, and charts of agent states, travel modes and activities"
+hero: "./cover.png"
+heroAlt: "HoloCity simulation replay dashboard"
 highlights:
   - value: "143 nodes · 242 edges"
     label: "real OpenStreetMap road network"
@@ -26,6 +28,8 @@ highlights:
 ## Overview
 
 Classic traffic models use fixed rules for route choice. This simulation asks what happens when every driver is an LLM agent with its own personality. On a real 1 km² road network around Bugis, Singapore, each agent checks the congestion ahead every 12-second step and decides in plain language whether to stay on its route or reroute.
+
+The project was later scaled up into HoloCity: a 2 km slice of Singapore with 500 agents, a replayable timeline, and live breakdowns of what agents are doing, how they travel and where they go.
 
 ## How it works
 

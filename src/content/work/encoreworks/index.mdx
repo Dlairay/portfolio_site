@@ -1,15 +1,16 @@
 ---
 title: "EncoreWorks"
-tagline: "AI talent marketplace for experienced professionals"
-oneLiner: "AI-matched marketplace connecting experienced professionals with fractional roles — built end to end as lead contract engineer."
+tagline: "AI-powered matching platform for experienced professionals"
+oneLiner: "A platform that matches experienced professionals with companies that need proven expertise, through AI-powered, project-based engagements."
 year: 2026
 dateRange: "Feb – Sep 2026"
 status: "shipped"
 featured: true
+takeaway: "Live AI matching platform, built as lead engineer from first commit to launch"
 order: 2
-role: "Lead contract engineer (built end to end, then handed over)"
+role: "Lead contract engineer"
 context: "Client engagement for EncoreWorks"
-tags: ["Next.js", "FastAPI", "Supabase / Postgres", "OpenAI + Instructor", "Cloud Run", "Evals"]
+tags: ["AI matching", "Marketplace", "Full-stack product"]
 links:
   - label: "encoreworks.ai"
     url: "https://encoreworks.ai"
@@ -19,34 +20,13 @@ hero: "./cover.png"
 heroAlt: "EncoreWorks homepage"
 logo: "./logo.png"
 logoAlt: "EncoreWorks logo"
-highlights:
-  - value: "0.86 / 0.84"
-    label: "recall / precision on the skill-inference eval"
-  - value: "~1,900"
-    label: "automated backend tests, plus Playwright end-to-end tests"
-  - value: "~600 commits"
-    label: "over 7 months, from first commit to handover"
 ---
 ## Overview
 
-EncoreWorks is a two-sided marketplace that matches experienced professionals with companies hiring for fractional and interim roles. Companies often undervalue senior talent; the platform surfaces what people can really do and carries the whole flow from match to application, messaging, reference checks and billing.
+EncoreWorks matches experienced professionals with companies that need proven expertise, through AI-powered, project-based engagements.
 
-I was the lead contract engineer, building the product essentially solo from the first commit to a production launch, then handing it over to the client's team.
+Professionals tell the platform about themselves through an AI-guided onboarding conversation, get matched on skills, motivations, work style and availability, then connect directly with companies. A human team checks the quality of every match.
 
-## AI that stays honest
+## My role
 
-The core problem is understanding skills people have but don't write down. I built a multi-pass inference pipeline for it:
-
-- CV extraction that only records skills the CV actually states
-- Latent skill inference: profile fields become evidence atoms, an LLM proposes candidate skills, and a skill graph proposes related ones
-- Every inferred skill has to pass an LLM defensibility check, then resolve against a curated skills registry — so the AI never invents vocabulary
-- A golden-set eval harness with gates on recall, precision and zero certification leaks, run before changes ship
-- Prompt-injection guards, a circuit breaker with retries, rate limits and a per-user daily LLM cost ledger
-
-## Matching & platform
-
-Matches combine a normalised capability-fit score with a five-dimension leadership calibration and an industry boost, computing the top matches for both sides. Around that sits a full product: multi-seat company accounts, messaging with attachments and meeting invites, moderation, Stripe billing and PDPA-compliant data export and deletion.
-
-## Engineering
-
-FastAPI with async SQLAlchemy on Google Cloud Run; a Next.js 16 / React 19 frontend on Vercel; Supabase Postgres with row-level security. Three fully separate environments (local, staging, production) with promotion from staging to production, around 1,900 backend tests, Playwright tests that drive only the real UI, and custom validators that catch schema drift, hardcoded settings and mock data before they ship.
+I was the lead contract engineer on the platform. Technical details are covered by an NDA; the live product is at [encoreworks.ai](https://encoreworks.ai).

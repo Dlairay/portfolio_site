@@ -1,0 +1,71 @@
+---
+import Spotlight from './Spotlight.astro';
+import ProjectCard from './ProjectCard.astro';
+import { getWork } from '../lib/work';
+const work = await getWork();
+const spotlight = work.filter((w) => w.data.featured);
+const others = work.filter((w) => !w.data.featured);
+---
+<section id="work" class="projects section" aria-labelledby="work-title" data-projects>
+  <div class="wrap">
+    <h2 id="work-title" class="projects__title" data-reveal>Past projects</h2>
+
+    <ul class="projects__spotlight">
+      {spotlight.map((w, i) => <Spotlight work={w} index={i} />)}
+    </ul>
+
+    <h3 class="projects__sub" data-reveal>Other projects</h3>
+    <ul class="projects__grid">
+      {others.map((w) => <ProjectCard work={w} />)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .projects {
+    --tint: transparent;
+    background: color-mix(in oklab, var(--tint) 10%, var(--bg-deep));
+    transition: background-color 0.6s var(--ease-out);
+  }
+  .projects__title {
+    font-family: var(--font-poster);
+    font-weight: 400;
+    font-size: clamp(3rem, 9vw, 8rem);
+    line-height: 0.9;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+  }
+  .projects__spotlight { display: grid; gap: clamp(4rem, 9vw, 8rem); }
+  .projects__sub {
+    font-family: var(--font-poster);
+    font-weight: 400;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    letter-spacing: 0;
+    text-transform: uppercase;
+    margin: clamp(5rem, 10vw, 9rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+    padding-top: clamp(2rem, 4vw, 3rem);
+    border-top: 1px solid var(--line);
+  }
+  .projects__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+</style>
+
+<script>
+  // Tint the section with the hovered/focused project's accent.
+  document.addEventListener('astro:page-load', () => {
+    const section = document.querySelector<HTMLElement>('[data-projects]');
+    if (!section) return;
+    const set = (c: string) => section.style.setProperty('--tint', c);
+    section.querySelectorAll<HTMLElement>('[data-card]').forEach((card) => {
+      const c = card.dataset.accent!;
+      card.addEventListener('pointerenter', () => set(c));
+      card.addEventListener('focusin', () => set(c));
+      card.addEventListener('pointerleave', () => set('transparent'));
+      card.addEventListener('focusout', () => set('transparent'));
+    });
+  });
+</script>

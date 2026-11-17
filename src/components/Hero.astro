@@ -1,0 +1,155 @@
+---
+import { Image } from 'astro:assets';
+import headshot from '../assets/headshot-cutout.png';
+---
+<section class="hero" aria-labelledby="hero-title" data-hero>
+  <div class="hero__light" aria-hidden="true"></div>
+
+  <h1 id="hero-title" class="sr-only">Ray Lai — Design it. Build it. Ship it.</h1>
+
+  <!-- Behind the portrait -->
+  <span class="hero__word hero__word--ray" data-hero-word aria-hidden="true">Ray</span>
+
+  <div class="hero__portrait" data-hero-portrait>
+    <Image
+      src={headshot}
+      alt="Portrait of Ray Lai"
+      widths={[474]}
+      sizes="(max-width: 760px) 90vw, 80svh"
+      quality={92}
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+
+  <!-- In front of the portrait -->
+  <span class="hero__word hero__word--lai" data-hero-word aria-hidden="true">Lai</span>
+
+  <p class="hero__desc" data-hero-fade>
+    Design it. Build it. Ship it.<br />
+    <span>AI products, end to end · SUTD</span>
+  </p>
+
+  <a class="hero__scroll" href="#worked-with" data-hero-fade>
+    Scroll to see more
+    <span class="hero__scroll-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
+    </span>
+  </a>
+</section>
+
+<style>
+  .hero {
+    --word: min(27svh, 17vw);
+    position: relative;
+    height: 100svh;
+    min-height: 34rem;
+    overflow: hidden;
+    isolation: isolate;
+    background: #0b0d10;
+    color: #fff;
+  }
+
+  .hero__light {
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    top: 40%;
+    translate: -50% -50%;
+    width: min(90vw, 70rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(160 185 255 / 0.13), rgb(140 165 255 / 0.04) 55%, transparent);
+  }
+
+  /* ---------- Portrait ---------- */
+  .hero__portrait {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    bottom: 0;
+    translate: -50% 0;
+    height: 100%;
+    aspect-ratio: 474 / 599;
+    transform-origin: 50% 100%;
+    will-change: transform, opacity;
+  }
+  .hero__portrait :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom;
+    mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+  }
+
+  /* ---------- Name ---------- */
+  .hero__word {
+    position: absolute;
+    font-family: var(--font-poster);
+    font-size: var(--word);
+    line-height: 0.82;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    pointer-events: none;
+    will-change: transform, filter, opacity;
+  }
+  /* sits behind the head, right edge tucked under the hair */
+  .hero__word--ray {
+    z-index: 0;
+    right: calc(50% + 0.4 * var(--word));
+    top: 11svh;
+  }
+  /* in front of the shoulder, below the chin */
+  .hero__word--lai {
+    z-index: 2;
+    left: calc(50% + 0.22 * var(--word));
+    top: 47svh;
+  }
+
+  /* ---------- Small copy ---------- */
+  .hero__desc {
+    position: absolute;
+    z-index: 3;
+    left: max(var(--gutter), 8vw);
+    top: 45svh;
+    font-family: var(--font-poster);
+    font-size: clamp(1.1rem, 1.8vw, 1.75rem);
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+  .hero__desc span { color: rgb(255 255 255 / 0.55); }
+
+  .hero__scroll {
+    position: absolute;
+    z-index: 3;
+    right: var(--gutter);
+    bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-family: var(--font-poster);
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .hero__scroll-icon {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    aspect-ratio: 1;
+    border: 1px solid rgb(255 255 255 / 0.4);
+    border-radius: 50%;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .hero__scroll:hover .hero__scroll-icon { background: #fff; color: #050608; }
+
+  @media (max-width: 760px) {
+    .hero { --word: 30vw; }
+    .hero__portrait { height: 78%; }
+    .hero__word--ray { top: 9svh; right: calc(50% - 0.1 * var(--word)); }
+    .hero__word--lai { top: auto; bottom: 18svh; left: calc(50% + 0.05 * var(--word)); }
+    .hero__desc { top: auto; bottom: 1.5rem; }
+    .hero__scroll { display: none; }
+  }
+</style>

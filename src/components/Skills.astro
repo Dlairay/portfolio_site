@@ -1,0 +1,99 @@
+---
+import Marquee from './Marquee.astro';
+
+// Concrete, ATS-friendly keywords only (tools, frameworks, stacks), each backed by a project.
+const rows = [
+  {
+    label: 'AI / ML',
+    accent: '#8EA8FF',
+    duration: 60,
+    direction: 'left' as const,
+    items: [
+      'LangChain', 'LangGraph', 'Google ADK', 'Multi-agent Systems', 'RAG', 'pgvector', 'LiteLLM', 'Ollama', 'MLX',
+      'Hugging Face', 'LoRA Fine-tuning', 'Whisper', 'FasterWhisper', 'Function Calling', 'Pydantic', 'Ray',
+    ],
+  },
+  {
+    label: 'Engineering',
+    accent: '#3DDC97',
+    duration: 50,
+    direction: 'right' as const,
+    items: ['Python', 'TypeScript', 'FastAPI', 'Flask', 'React', 'React Three Fiber', 'WebGL', 'PostgreSQL', 'Docker', 'GCP', 'Firebase', 'NetworkX', 'C++'],
+  },
+  {
+    label: 'Design',
+    accent: '#E7E9EE',
+    duration: 45,
+    direction: 'left' as const,
+    items: ['Figma', 'Fusion 360', 'Blender', 'UX Research', 'Service Design', 'Rapid Prototyping'],
+  },
+];
+---
+<section id="skills" class="skills" aria-labelledby="skills-title">
+  <h2 id="skills-title" class="sr-only">Skills</h2>
+  {rows.map((r) => (
+    <div class="skills__row" style={`--row-accent:${r.accent}`}>
+      <h3 class="skills__name">{r.label}</h3>
+      <Marquee duration={r.duration} direction={r.direction} repeat={2} class="skills__marquee" label={`${r.label} skills`}>
+        {r.items.map((i) => (
+          <li class="word">
+            <span class="word__text">{i}</span>
+            <span class="word__dot" aria-hidden="true"></span>
+          </li>
+        ))}
+      </Marquee>
+    </div>
+  ))}
+</section>
+
+<style>
+  .skills {
+    background: var(--bg-deep);
+    padding-block: clamp(1.5rem, 3vw, 2.5rem);
+    border-block: 1px solid var(--line);
+    overflow: hidden;
+  }
+
+  .skills__row {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: 1.25rem;
+    align-items: center;
+    padding-block: 0.35rem;
+  }
+  .skills__row + .skills__row { border-top: 1px solid var(--line); }
+
+  .skills__name {
+    padding-left: var(--gutter);
+    min-width: calc(var(--gutter) + 7.5rem);
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    color: var(--row-accent);
+  }
+
+  .skills__marquee { --gap: clamp(0.9rem, 1.6vw, 1.5rem); }
+
+  .word { display: flex; align-items: center; gap: var(--gap); flex-shrink: 0; }
+  .word__text {
+    font-family: var(--font-poster);
+    font-size: clamp(1.75rem, 3.6vw, 3.25rem);
+    line-height: 1.15;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: transparent;
+    -webkit-text-stroke: 1.2px rgb(238 242 246 / 0.75);
+    transition: color 0.25s var(--ease-out), -webkit-text-stroke-color 0.25s;
+    cursor: default;
+  }
+  .word__text:hover { color: #fff; -webkit-text-stroke-color: #fff; }
+  .word__dot { width: 0.4rem; aspect-ratio: 1; border-radius: 50%; background: var(--row-accent); }
+
+  @media (max-width: 700px) {
+    .skills__row { grid-template-columns: 1fr; }
+    .skills__name { padding-top: 0.5rem; }
+  }
+</style>

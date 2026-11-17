@@ -1,0 +1,22 @@
+# deps / build
+node_modules/
+dist/
+.astro/
+
+# env
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# local tooling
+.claude/settings.local.json
+.playwright-mcp/

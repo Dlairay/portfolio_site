@@ -1,0 +1,110 @@
+---
+import { Image } from 'astro:assets';
+import { accentFor, chipFor, url, type Work } from '../lib/work';
+
+interface Props { work: Work; index: number }
+const { work, index } = Astro.props;
+const d = work.data;
+const accent = accentFor(work);
+const chip = chipFor(work);
+const flip = index % 2 === 1;
+---
+<li class:list={['spot', { 'spot--flip': flip }]} style={`--accent:${accent}`} data-card data-accent={accent}>
+  <a class="spot__link" href={url(`work/${work.id}/`)}>
+    <div class="spot__media" data-spot-media data-from={flip ? 'right' : 'left'}>
+      <Image
+        src={d.cover}
+        alt={d.coverAlt}
+        widths={[600, 1000, 1400]}
+        sizes="(max-width: 900px) 100vw, 55vw"
+        loading="lazy"
+        transition:name={`media-${work.id}`}
+      />
+    </div>
+    <div class="spot__body" data-spot-body>
+      <p class="spot__meta">
+        <span class="spot__num">{String(index + 1).padStart(2, '0')}</span>
+        {chip && <span>{chip}</span>}
+        <span>{d.year}</span>
+      </p>
+      <h3 class="spot__title">{d.title}</h3>
+      <p class="spot__desc">{d.oneLiner}</p>
+      {d.takeaway && <p class="spot__takeaway">{d.takeaway}</p>}
+      <span class="spot__more">View project <span aria-hidden="true">→</span></span>
+    </div>
+  </a>
+</li>
+
+<style>
+  .spot { list-style: none; }
+  .spot__link {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 5rem);
+    color: inherit;
+    text-decoration: none;
+  }
+  .spot--flip .spot__media { order: 2; }
+
+  .spot__media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #0a0f15;
+    box-shadow: 0 40px 80px -40px color-mix(in oklab, var(--accent) 45%, transparent);
+  }
+  .spot__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid rgb(255 255 255 / 0.08);
+    pointer-events: none;
+  }
+  .spot__media :global(img) {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.9s var(--ease-out);
+  }
+  .spot__link:hover .spot__media :global(img),
+  .spot__link:focus-visible .spot__media :global(img) { transform: scale(1.04); }
+
+  .spot__body { display: flex; flex-direction: column; align-items: flex-start; gap: 1.1rem; }
+  .spot__meta {
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1rem;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .spot__num { color: var(--accent); }
+  .spot__title {
+    font-family: var(--font-poster);
+    font-weight: 400;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    line-height: 0.9;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+  .spot__desc { font-size: clamp(1rem, 1.3vw, 1.15rem); color: var(--ink-dim); max-width: 34rem; }
+  .spot__takeaway {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.1vw, 1.9rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    padding-left: 1rem;
+    border-left: 3px solid var(--accent);
+    max-width: 30rem;
+    text-wrap: balance;
+  }
+  .spot__more { margin-top: 0.5rem; font-weight: 600; color: var(--ink); }
+  .spot__more span { display: inline-block; transition: transform 0.3s var(--ease-out); }
+  .spot__link:hover .spot__more span { transform: translateX(6px); }
+  .spot__link:focus-visible { outline: 2px solid var(--accent); outline-offset: 8px; border-radius: var(--radius); }
+
+  @media (max-width: 900px) {
+    .spot__link { grid-template-columns: 1fr; }
+    .spot--flip .spot__media { order: 0; }
+  }
+</style>

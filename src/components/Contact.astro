@@ -1,0 +1,209 @@
+---
+import { contact } from '../data/contact';
+---
+<button class="talk" type="button" data-contact-open aria-haspopup="dialog" aria-controls="contact-dialog" transition:persist="talk-btn">
+  <span class="talk__dot" aria-hidden="true"></span>
+  Contact
+</button>
+
+<dialog id="contact-dialog" class="contact" aria-labelledby="contact-title" data-lenis-prevent data-endpoint={contact.formEndpoint} data-email={contact.email}>
+  <div class="contact__inner">
+    <header class="contact__head">
+      <h2 id="contact-title" class="contact__title">Contact</h2>
+      <button class="contact__close" type="button" data-contact-close aria-label="Close">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+      </button>
+    </header>
+
+    <div class="contact__email">
+      <a href={`mailto:${contact.email}`}>{contact.email}</a>
+      <button type="button" class="contact__copy" data-copy={contact.email}>Copy</button>
+    </div>
+
+    <ul class="contact__socials">
+      {contact.socials.map((s) => (
+        <li>
+          <a href={s.url} target="_blank" rel="noopener">
+            <span class="contact__social-label">{s.label}</span>
+            <span class="contact__social-handle">{s.handle} ↗</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <form class="contact__form" data-contact-form>
+      <p class="contact__form-title">Or send a quick message</p>
+      <label>
+        <span>Name</span>
+        <input name="name" type="text" autocomplete="name" required />
+      </label>
+      <label>
+        <span>Your email</span>
+        <input name="email" type="email" autocomplete="email" required />
+      </label>
+      <label>
+        <span>Message</span>
+        <textarea name="message" rows="4" required></textarea>
+      </label>
+      <button type="submit" class="contact__send">Send message</button>
+      <p class="contact__status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</dialog>
+
+<style>
+  .talk {
+    position: fixed;
+    z-index: 50;
+    top: 1.25rem;
+    right: var(--gutter);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.4rem;
+    border: 0;
+    border-radius: 999px;
+    background: #fff;
+    color: #0b0d10;
+    font-family: var(--font-poster);
+    font-size: 1.1rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 10px 30px -12px rgb(255 255 255 / 0.35);
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+  }
+  .talk:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 14px 36px -12px rgb(255 255 255 / 0.5); }
+  .talk:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+  .talk__dot {
+    width: 0.55rem; aspect-ratio: 1; border-radius: 50%; background: #2fd67b;
+    animation: talk-pulse 2s ease-in-out infinite;
+  }
+  @keyframes talk-pulse { 50% { opacity: 0.3; } }
+
+  .contact {
+    width: min(30rem, calc(100vw - 2rem));
+    max-height: calc(100svh - 2rem);
+    margin: 1rem 1rem auto auto;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+    background: #0f1620;
+    color: var(--ink);
+    overflow: auto;
+    box-shadow: 0 40px 80px -20px rgb(0 0 0 / 0.7);
+  }
+  .contact::backdrop { background: rgb(3 6 10 / 0.6); backdrop-filter: blur(6px); }
+  .contact[open] { animation: contact-in 0.45s var(--ease-out); }
+  @keyframes contact-in { from { opacity: 0; transform: translateY(-12px) scale(0.98); } }
+
+  .contact__inner { display: grid; gap: 1.5rem; padding: clamp(1.25rem, 3vw, 2rem); }
+  .contact__head { display: flex; justify-content: space-between; align-items: center; }
+  .contact__title { font-family: var(--font-poster); font-weight: 400; font-size: 2.5rem; letter-spacing: 0; text-transform: uppercase; }
+  .contact__close {
+    display: grid; place-items: center; width: 2.5rem; aspect-ratio: 1;
+    border: 1px solid var(--line); border-radius: 50%; background: none; color: var(--ink); cursor: pointer;
+  }
+  .contact__close:hover { background: rgb(255 255 255 / 0.08); }
+
+  .contact__email {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 1rem 1.1rem; border-radius: 0.9rem; background: rgb(255 255 255 / 0.04); border: 1px solid var(--line);
+  }
+  .contact__email a { font-weight: 600; text-decoration: none; word-break: break-all; }
+  .contact__email a:hover { color: var(--accent); }
+  .contact__copy {
+    flex-shrink: 0; padding: 0.4rem 0.9rem; border-radius: 999px; border: 1px solid var(--line);
+    background: none; color: var(--ink); font: inherit; font-size: 0.85rem; cursor: pointer;
+  }
+  .contact__copy:hover { border-color: var(--accent); color: var(--accent); }
+
+  .contact__socials { display: grid; gap: 0.5rem; }
+  .contact__socials a {
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    padding: 0.85rem 1.1rem; border-radius: 0.9rem; border: 1px solid var(--line); text-decoration: none;
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+  .contact__socials a:hover { border-color: var(--accent); background: rgb(142 168 255 / 0.07); }
+  .contact__social-label { font-weight: 600; }
+  .contact__social-handle { color: var(--ink-dim); font-size: 0.9rem; }
+
+  .contact__form { display: grid; gap: 0.85rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+  .contact__form-title { font-weight: 600; }
+  .contact__form label { display: grid; gap: 0.35rem; font-size: 0.85rem; color: var(--ink-dim); }
+  .contact__form input, .contact__form textarea {
+    width: 100%; padding: 0.75rem 0.9rem; border-radius: 0.7rem; border: 1px solid var(--line);
+    background: rgb(255 255 255 / 0.03); color: var(--ink); font: inherit; font-size: 1rem; resize: vertical;
+  }
+  .contact__form input:focus, .contact__form textarea:focus { outline: none; border-color: var(--accent); }
+  .contact__send {
+    justify-self: start; padding: 0.8rem 1.4rem; border: 0; border-radius: 999px;
+    background: #fff; color: #0b0d10; font-weight: 700; font-size: 0.95rem; cursor: pointer;
+  }
+  .contact__send:hover { filter: brightness(1.08); }
+  .contact__send:disabled { opacity: 0.6; cursor: wait; }
+  .contact__status { font-size: 0.9rem; color: var(--ink-dim); min-height: 1.2em; }
+</style>
+
+<script>
+  function setup() {
+    const dialog = document.getElementById('contact-dialog') as HTMLDialogElement | null;
+    if (!dialog || dialog.dataset.ready) return;
+    dialog.dataset.ready = '1';
+
+    const close = () => dialog.close();
+    dialog.addEventListener('close', () => document.dispatchEvent(new CustomEvent('contact:toggle', { detail: false })));
+    dialog.addEventListener('click', (e) => { if (e.target === dialog) close(); }); // click on backdrop
+    dialog.querySelector('[data-contact-close]')?.addEventListener('click', close);
+
+    const copyBtn = dialog.querySelector<HTMLButtonElement>('[data-copy]');
+    copyBtn?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(copyBtn.dataset.copy!);
+        copyBtn.textContent = 'Copied';
+      } catch {
+        copyBtn.textContent = 'Copy failed';
+      }
+      setTimeout(() => (copyBtn.textContent = 'Copy'), 1800);
+    });
+
+    const form = dialog.querySelector<HTMLFormElement>('[data-contact-form]')!;
+    const status = form.querySelector<HTMLElement>('.contact__status')!;
+    const send = form.querySelector<HTMLButtonElement>('.contact__send')!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const endpoint = dialog.dataset.endpoint;
+      if (!endpoint) {
+        // No backend configured: hand off to the visitor's mail app.
+        const subject = `Hello from ${data.get('name')}`;
+        const body = `${data.get('message')}\n\n— ${data.get('name')} (${data.get('email')})`;
+        location.href = `mailto:${dialog.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        status.textContent = 'Opening your mail app…';
+        return;
+      }
+      send.disabled = true;
+      status.textContent = 'Sending…';
+      try {
+        const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        status.textContent = 'Sent. I’ll get back to you soon.';
+      } catch {
+        status.textContent = `Couldn’t send. Email me at ${dialog.dataset.email} instead.`;
+      } finally {
+        send.disabled = false;
+      }
+    });
+  }
+  // Registered once: opens whichever dialog the current page has.
+  document.addEventListener('click', (e) => {
+    if (!(e.target as Element).closest('[data-contact-open]')) return;
+    const dialog = document.getElementById('contact-dialog') as HTMLDialogElement | null;
+    if (!dialog || dialog.open) return;
+    e.preventDefault();
+    dialog.showModal();
+    document.dispatchEvent(new CustomEvent('contact:toggle', { detail: true }));
+  });
+  document.addEventListener('astro:page-load', setup);
+</script>

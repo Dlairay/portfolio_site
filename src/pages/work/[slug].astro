@@ -1,0 +1,132 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getWork, accentFor, chipFor, isTodo, url, type Work } from '../../lib/work';
+
+export async function getStaticPaths() {
+  const all = await getWork();
+  return all.map((work, i) => ({ params: { slug: work.id }, props: { work, next: all[(i + 1) % all.length] } }));
+}
+interface Props { work: Work; next: Work }
+const { work, next } = Astro.props;
+const d = work.data;
+const { Content } = await render(work);
+const accent = accentFor(work);
+const meta = [
+  ['Role', d.role],
+  ['Context', d.context],
+  ['When', d.dateRange],
+].filter(([, v]) => !isTodo(v));
+const story = [
+  ['Problem', d.problem ?? d.oneLiner],
+  ['What I figured out', d.insight],
+].filter(([, v]) => v) as [string, string][];
+---
+<Base title={`${d.title} — Ray Lai`} description={d.oneLiner}>
+  <article class="detail" style={`--accent:${accent}`}>
+    <header class="wrap detail__head">
+      <a class="detail__back" href={url('#work')}>← All projects</a>
+      {chipFor(work) && <span class="detail__chip">{chipFor(work)}</span>}
+      <h1 class="detail__title">{d.title}</h1>
+      <p class="detail__tagline">{d.tagline}</p>
+    </header>
+
+    <div class="wrap">
+      <div class="detail__hero">
+        <Image src={d.hero ?? d.cover} alt={d.heroAlt ?? d.coverAlt} widths={[800, 1400, 2000]} sizes="(max-width: 1400px) 100vw, 1400px" loading="eager" transition:name={`media-${work.id}`} />
+      </div>
+
+      <dl class="detail__meta">
+        {meta.map(([k, v]) => (<div><dt>{k}</dt><dd>{v}</dd></div>))}
+      </dl>
+
+      <div class="detail__story">
+        {story.map(([k, v]) => (<div><h2>{k}</h2><p>{v}</p></div>))}
+        {d.highlights.length > 0 && (
+          <div>
+            <h2>Result</h2>
+            <ul class="detail__results">
+              {d.highlights.map((h) => (<li><strong>{h.value}</strong><span>{h.label}</span></li>))}
+            </ul>
+          </div>
+        )}
+      </div>
+
+      <div class="detail__body prose"><Content /></div>
+
+      {d.video && (
+        <div class="detail__video">
+          <iframe src={d.video} title={`${d.title} demo video`} loading="lazy" allowfullscreen></iframe>
+        </div>
+      )}
+
+      {d.gallery.length > 0 && (
+        <ul class="detail__gallery">
+          {d.gallery.map((g, i) => (
+            <li><Image src={g.src} alt={g.alt ?? `${d.title} — image ${i + 1}`} widths={[600, 1000, 1600]} sizes="(max-width: 900px) 100vw, 50vw" loading="lazy" /></li>
+          ))}
+        </ul>
+      )}
+
+      {d.links.length > 0 && (
+        <ul class="detail__links">
+          {d.links.map((l) => (<li><a href={l.url} target="_blank" rel="noopener">{l.label} ↗</a></li>))}
+        </ul>
+      )}
+
+      <a class="detail__next" href={url(`work/${next.id}/`)}>
+        <span>Next project</span>
+        <strong>{next.data.title} →</strong>
+      </a>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .detail { padding-block: clamp(2rem, 5vw, 4rem) clamp(4rem, 8vw, 6rem); }
+  .detail__head { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .detail__back { color: var(--ink-dim); text-decoration: none; font-weight: 500; margin-bottom: 1rem; }
+  .detail__back:hover { color: var(--ink); }
+  .detail__chip { padding: 0.3rem 0.75rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; color: var(--accent); background: color-mix(in oklab, var(--accent) 14%, transparent); }
+  .detail__title { font-size: clamp(3rem, 9vw, 8rem); letter-spacing: -0.05em; }
+  .detail__tagline { font-size: clamp(1.1rem, 1.8vw, 1.5rem); color: var(--ink-dim); max-width: 40ch; }
+
+  .detail__hero { border-radius: var(--radius); overflow: hidden; background: #0a0f15; }
+  .detail__hero :global(img) { width: 100%; max-height: 80svh; object-fit: cover; }
+
+  .detail__meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.5rem; margin: clamp(2rem, 4vw, 3rem) 0; padding-bottom: 2rem; border-bottom: 1px solid var(--line); }
+  .detail__meta dt, .detail__story h2 { font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.4rem; }
+  .detail__meta dd { margin: 0; }
+
+  .detail__story { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 2rem; margin-bottom: clamp(3rem, 6vw, 5rem); }
+  .detail__story p { font-family: var(--font-display); font-size: clamp(1.2rem, 1.8vw, 1.6rem); line-height: 1.25; letter-spacing: -0.02em; }
+  .detail__results { display: grid; gap: 0.75rem; }
+  .detail__results strong { display: block; font-family: var(--font-display); font-size: 1.3rem; color: var(--accent); }
+  .detail__results span { color: var(--ink-dim); font-size: 0.95rem; }
+
+  .prose { max-width: 44rem; margin-inline: auto; }
+  .prose :global(h2) { font-size: clamp(1.6rem, 2.5vw, 2.2rem); margin: 2.5rem 0 1rem; }
+  .prose :global(h3) { font-size: 1.3rem; margin: 2rem 0 0.75rem; }
+  .prose :global(p), .prose :global(ul), .prose :global(ol) { margin: 0 0 1.1rem; color: #cfd7df; }
+  .prose :global(ul) { list-style: disc; padding-left: 1.25rem; }
+  .prose :global(ol) { list-style: decimal; padding-left: 1.25rem; }
+  .prose :global(li) { margin-bottom: 0.4rem; }
+  .prose :global(a) { color: var(--accent); }
+
+  .detail__video { aspect-ratio: 16 / 9; margin: 3rem auto 0; max-width: 60rem; border-radius: var(--radius); overflow: hidden; }
+  .detail__video iframe { width: 100%; height: 100%; border: 0; }
+
+  .detail__gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 1rem; margin-top: clamp(3rem, 6vw, 5rem); }
+  .detail__gallery li { border-radius: 0.75rem; overflow: hidden; background: #0a0f15; }
+  .detail__gallery :global(img) { width: 100%; height: 100%; object-fit: cover; }
+
+  .detail__links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 3rem; justify-content: center; }
+  .detail__links a { display: inline-block; padding: 0.7rem 1.3rem; border-radius: 999px; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; font-weight: 600; }
+  .detail__links a:hover { background: var(--accent); color: var(--bg-deep); }
+
+  .detail__next { display: flex; flex-direction: column; gap: 0.5rem; margin-top: clamp(4rem, 8vw, 7rem); padding-top: 2rem; border-top: 1px solid var(--line); text-decoration: none; color: inherit; }
+  .detail__next span { color: var(--ink-faint); font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase; }
+  .detail__next strong { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4rem); letter-spacing: -0.04em; }
+  .detail__next:hover strong { color: var(--accent); }
+</style>

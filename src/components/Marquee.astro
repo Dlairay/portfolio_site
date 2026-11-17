@@ -1,0 +1,29 @@
+---
+interface Props {
+  /** Seconds per loop. */
+  duration?: number;
+  direction?: 'left' | 'right';
+  /** How many copies of the list sit in one track, so short lists still fill wide screens. */
+  repeat?: number;
+  label?: string;
+  class?: string;
+}
+const { duration = 50, direction = 'left', repeat = 1, label, class: cls } = Astro.props;
+const html = await Astro.slots.render('default');
+const copies = Array.from({ length: repeat }, (_, i) => i);
+---
+<div
+  class:list={['marquee', cls]}
+  data-marquee
+  data-direction={direction}
+  style={`--duration:${duration}s`}
+  role={label ? 'region' : undefined}
+  aria-label={label}
+>
+  <div class="marquee__track">
+    {copies.map((i) => <ul class="marquee__set" aria-hidden={i > 0 ? 'true' : undefined} set:html={html} />)}
+  </div>
+  <div class="marquee__track" aria-hidden="true">
+    {copies.map(() => <ul class="marquee__set" set:html={html} />)}
+  </div>
+</div>
