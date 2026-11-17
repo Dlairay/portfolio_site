@@ -21,7 +21,7 @@ const logos: { name: string; src?: string; w?: number; wordmark?: string }[] = [
   <Marquee duration={45} repeat={2} class="cred__marquee" label="Organisations I have worked with">
     {logos.map((l) => (
       <li class="logo" title={l.name}>
-        {l.src && <img src={url(l.src)} alt={l.name} width={l.w} height="60" loading="lazy" decoding="async" />}
+        {l.src && <img src={url(l.src)} alt={l.name} width={l.w} height="60" loading="eager" decoding="async" />}
         {l.wordmark && <span class="logo__word" aria-hidden={l.src ? 'true' : undefined}>{l.wordmark}</span>}
       </li>
     ))}
